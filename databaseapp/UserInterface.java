@@ -9,9 +9,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import javax.swing.JButton;
+
+import javax.swing.Action;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 public class UserInterface {
     private JFrame frame;
     private JPanel panel;
-    private JLabel label;
     final int FRAME_WIDTH = 600;
     final int FRAME_HEIGHT = 500;
 
@@ -56,6 +55,45 @@ public class UserInterface {
 
     public void show() {
         frame.setVisible(true);
+    }
+
+    /**
+     * For the Add button
+     * @return The method that will run when the "Add Appointment" button is clicked
+     */
+    public static ActionListener getAddListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("The Add button was pressed");
+            }
+        };
+    }
+
+    /**
+     * For the Remove button
+     * @return The method that will run when the "Remove Appointment" button is clicked
+     */
+    public static ActionListener getRemoveListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("The Remove button was pressed");
+            }
+        };
+    }
+
+    /**
+     * For the View button
+     * @return The method that will run when the "View Appointment" button is clicked
+     */
+    public static ActionListener getViewListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("The View button was pressed");
+            }
+        };
     }
 
     private class ClickListener implements ActionListener {

@@ -14,6 +14,9 @@ class MenuPanel extends JPanel{
         this.menuRemove = new JButton("Remove Appointments");
         this.menuView = new JButton("See Appointments");
         
+        this.menuAdd.addActionListener(UserInterface.getAddListener());
+        this.menuRemove.addActionListener(UserInterface.getRemoveListener());
+        this.menuView.addActionListener(UserInterface.getViewListener());
         // this.menuAdd.setBounds(0,0,100,50);
         // this.menuRemove.setBounds(0,0,100,50);
         // this.menuView.setBounds(0,0,100,50);
