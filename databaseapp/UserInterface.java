@@ -30,12 +30,15 @@ public class UserInterface {
         this.frame = new JFrame("Test UI");
         this.panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        //NORTH
+        //PRESET Panels
         MenuPanel menu = new MenuPanel();
         this.panel.add(menu, BorderLayout.NORTH);
+
+        CentralPanel central = new CentralPanel();
+        this.panel.add(central, BorderLayout.CENTER);
         //##########OTHER
-        this.label = new JLabel("Hello!");
-        panel.add(this.label);
+        // this.label = new JLabel("Hello!");
+        // panel.add(this.label);
         frame.add(this.panel);
 
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
