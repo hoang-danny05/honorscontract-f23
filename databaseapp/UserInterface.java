@@ -7,6 +7,7 @@ package databaseapp;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,20 +20,21 @@ import javax.swing.JPanel;
  */
 public class UserInterface {
     private JFrame frame;
-    private JButton button;
     private JPanel panel;
     private JLabel label;
-    final int FRAME_WIDTH = 300;
-    final int FRAME_HEIGHT = 200;
+    final int FRAME_WIDTH = 600;
+    final int FRAME_HEIGHT = 500;
 
     public UserInterface() {
-        //initialize components
+        //initialize containers
         this.frame = new JFrame("Test UI");
-        this.button = new JButton("Press Me!");
-        this.label = new JLabel("Hello!");
-
         this.panel = new JPanel();
-        panel.add(this.button);
+        panel.setLayout(new BorderLayout());
+        //NORTH
+        MenuPanel menu = new MenuPanel();
+        this.panel.add(menu, BorderLayout.NORTH);
+        //##########OTHER
+        this.label = new JLabel("Hello!");
         panel.add(this.label);
         frame.add(this.panel);
 
@@ -41,13 +43,12 @@ public class UserInterface {
         this.frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
-                //place for exiting code to run
                 System.out.println("Closing the program!!!!");
             }
         });
         //other stuff
-        ActionListener listener = new ClickListener();
-        button.addActionListener(listener);
+        // ActionListener listener = new ClickListener();
+        // button.addActionListener(listener);
     }
 
     public void show() {

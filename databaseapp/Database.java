@@ -83,7 +83,7 @@ public class Database {
                 System.out.println(result.getString("Name"));
             }
 
-            // this.stat.execute("DROP TABLE Test");
+            this.stat.execute("DROP TABLE Test");
         }
         catch (SQLException se) {
             System.out.println("SQL Error: " + se.getSQLState());
