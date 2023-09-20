@@ -4,12 +4,12 @@
  */
 package databaseapp;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.DriverManager;
+// import java.sql.Connection;
+// import java.sql.ResultSet;
+// import java.sql.SQLException;
+// import java.sql.Statement;
+// import java.sql.ResultSet;
+// import java.sql.DriverManager;
 /**
  *
  * @author Bajan
@@ -21,6 +21,8 @@ public class AppointmentApp {
      */
     public static void main(String[] args) throws Exception {
       Database db = new Database();
+      UserInterface ui = new UserInterface();
+      ui.show();
       db.init();
       db.testTable();
       db.exit();

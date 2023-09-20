@@ -75,7 +75,7 @@ public class Database {
 
     public void testTable() {
         try{
-            this.stat.execute("INSERT INTO Test VALUES ('Juliet')");
+            this.stat.execute("INSERT INTO Test VALUES ('UrMom')");
 
             ResultSet result = this.stat.executeQuery("SELECT * FROM Test");
 
