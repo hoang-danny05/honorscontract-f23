@@ -36,16 +36,22 @@ public class Database {
     public boolean init() {
         String databaseName;
         String connectionUrl;
+
+        //this part is error prone, the database might not be installed or may be misconfigured...
         try {
+            //Read database.conf in the src folder, get the database name
             this.in = new FileInputStream("./database.conf");
             this.props.load(this.in);
             databaseName = props.getProperty("database.name");
+            //create the url that will be used to connect to the database
             connectionUrl = "jdbc:derby:" + databaseName + ";create = true";
-            //create == true may not be needed, might have to be removed
+            //Connects to the database 
             this.conn = DriverManager.getConnection(connectionUrl);
             System.out.println("Successfully connected to " + databaseName);
 
+            //added stat to execute SQL queries later on
             this.stat = this.conn.createStatement();
+            //Create the table if it does not exist
             if (! Utils.checkForTable(conn)) {
                 System.out.println("Table does not exist, creating a table");
                 stat.execute("CREATE TABLE Test (Name VARCHAR(20))");
@@ -53,26 +59,29 @@ public class Database {
                 System.out.println("Table check passed.");
             }
         } 
-        catch (FileNotFoundException e) 
+        catch (FileNotFoundException e) //no configuration file
         {
             System.out.println("No configuration file found. Please input config in \"database.conf\"");
             return false;
         }
-        catch (SQLException se) {
+        catch (SQLException se) { //Any SQL error
             System.out.println("SQL Error: " + se.getSQLState());
             se.printStackTrace(System.out);
             return false;
         }
-        catch (Exception e) {
+        catch (Exception e) { //Any other mystery error
             System.out.println("An error happened when initializing the database.");
             e.printStackTrace(System.out);
             return false;
         }
 
-
+        //everything worked out well, no errors happened. 
         return true;
     }
 
+    /**
+     * placeholder before I add any real SQL code execution
+     */
     public void testTable() {
         try{
             this.stat.execute("INSERT INTO Test VALUES ('UrMom')");
@@ -110,6 +119,7 @@ public class Database {
                 }
             }
 
+            //output if the database shut down correctly
             if (gotSQLExec) {
                 System.out.println("Database shut down normally.");
             } else {
