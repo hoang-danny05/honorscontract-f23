@@ -5,6 +5,8 @@
 package databaseapp;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,6 +38,13 @@ public class UserInterface {
 
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                //place for exiting code to run
+                System.out.println("Closing the program!!!!");
+            }
+        });
         //other stuff
         ActionListener listener = new ClickListener();
         button.addActionListener(listener);
