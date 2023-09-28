@@ -19,57 +19,28 @@ import javax.swing.JPanel;
  * @author Bajan 
  */
 public class UserInterface {
-    private JFrame frame;
-    private JPanel panel;
-    final int FRAME_WIDTH = 600;
-    final int FRAME_HEIGHT = 200;
+    private static JFrame frame;
+    private static JPanel panel;
+    final static int FRAME_WIDTH = 600;
+    final static int FRAME_HEIGHT = 200;
     private static UI_STATE state;
 
     /**
      * initialize an instance of the UI
      */
-    public UserInterface() {
-        //initialize containers
-        this.frame = new JFrame("Test UI");
-        this.panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        //############ Container Panels
-        MenuPanel menu = new MenuPanel();
-        this.panel.add(menu, BorderLayout.NORTH);
-
-        UserInterface.state = UI_STATE.ADD_APPOINTMENT;
-        CentralPanel central = new CentralPanel();
-        this.panel.add(central, BorderLayout.CENTER);
-
-        //########## OTHER
-        // this.label = new JLabel("Hello!");
-        // panel.add(this.label);
-        frame.add(this.panel);
-
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //create abstract class for the exit method (runs when we exit)
-        this.frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent event) {
-                System.out.println("Closing the program!!!!");
-            }
-        });
-        //other stuff
-        // ActionListener listener = new ClickListener();
-        // button.addActionListener(listener);
+    public static void init() {
+        changeState(UI_STATE.ADD_APPOINTMENT);
     }
 
     /**
      * shows the UI
      */
-    public void show() {
+    public static void show() {
         frame.setVisible(true);
     }
 
     /**
-     * reloads the User Interface based on how the state has changed
+     * reloads/loads the User Interface based on how the state has changed
      * @param newState
      */
     public static void changeState(UI_STATE newState) {
@@ -80,7 +51,37 @@ public class UserInterface {
         if (oldState == newState) {
             return;
         }
-        
+        //#####CONSTRUCT
+        //initialize containers
+        frame = new JFrame("Test UI");
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        //############ Container Panels
+        MenuPanel menu = new MenuPanel();
+        panel.add(menu, BorderLayout.NORTH);
+
+        UserInterface.state = UI_STATE.ADD_APPOINTMENT;
+        CentralPanel central = new CentralPanel();
+        panel.add(central, BorderLayout.CENTER);
+
+        //########## OTHER
+        // this.label = new JLabel("Hello!");
+        // panel.add(this.label);
+        frame.add(panel);
+
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //create abstract class for the exit method (runs when we exit)
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                System.out.println("Closing the program!!!!");
+            }
+        });
+        //other stuff
+        // ActionListener listener = new ClickListener();
+        // button.addActionListener(listener);       
     }
 
     /**

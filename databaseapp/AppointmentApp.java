@@ -21,8 +21,8 @@ public class AppointmentApp {
      */
     public static void main(String[] args) throws Exception {
       Database db = new Database();
-      UserInterface ui = new UserInterface();
-      ui.show();
+      UserInterface.init();
+      UserInterface.show();
       db.init();
       db.testTable();
       db.exit();
