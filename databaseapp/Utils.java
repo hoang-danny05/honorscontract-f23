@@ -21,8 +21,8 @@ public class Utils {
    * @throws SQLException
    */
   public static boolean checkForTable(Connection conn) throws SQLException{
-    boolean check = true;
-    boolean isExisting = false;
+    // boolean check = true;
+    // boolean isExisting = false;
     try {
       Statement s = conn.createStatement();
       // s.execute("update Test set Name = 'Danny', Hours = 18 where 1=3");

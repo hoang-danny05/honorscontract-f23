@@ -10,38 +10,46 @@ import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 /**
- *
- * @author Bajan
+ * User Interface class for the database app
+ * @author Bajan 
  */
 public class UserInterface {
     private JFrame frame;
     private JPanel panel;
     final int FRAME_WIDTH = 600;
-    final int FRAME_HEIGHT = 500;
+    final int FRAME_HEIGHT = 200;
+    private static UI_STATE state;
 
+    /**
+     * initialize an instance of the UI
+     */
     public UserInterface() {
         //initialize containers
         this.frame = new JFrame("Test UI");
         this.panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        //PRESET Panels
+
+        //############ Container Panels
         MenuPanel menu = new MenuPanel();
         this.panel.add(menu, BorderLayout.NORTH);
 
+        UserInterface.state = UI_STATE.ADD_APPOINTMENT;
         CentralPanel central = new CentralPanel();
         this.panel.add(central, BorderLayout.CENTER);
-        //##########OTHER
+
+        //########## OTHER
         // this.label = new JLabel("Hello!");
         // panel.add(this.label);
         frame.add(this.panel);
 
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //create abstract class for the exit method (runs when we exit)
         this.frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
@@ -53,8 +61,26 @@ public class UserInterface {
         // button.addActionListener(listener);
     }
 
+    /**
+     * shows the UI
+     */
     public void show() {
         frame.setVisible(true);
+    }
+
+    /**
+     * reloads the User Interface based on how the state has changed
+     * @param newState
+     */
+    public static void changeState(UI_STATE newState) {
+        //reload components based on the state
+        UI_STATE oldState = UserInterface.state;
+        UserInterface.state = newState;
+        System.out.println("The state is changing or whatever");
+        if (oldState == newState) {
+            return;
+        }
+        
     }
 
     /**
@@ -66,6 +92,7 @@ public class UserInterface {
             @Override
             public void actionPerformed(ActionEvent event) {
                 System.out.println("The Add button was pressed");
+                UserInterface.changeState(UI_STATE.ADD_APPOINTMENT);
             }
         };
     }
@@ -79,6 +106,7 @@ public class UserInterface {
             @Override
             public void actionPerformed(ActionEvent event) {
                 System.out.println("The Remove button was pressed");
+                UserInterface.changeState(UI_STATE.REMOVE_APPOINTMENT);
             }
         };
     }
@@ -92,13 +120,14 @@ public class UserInterface {
             @Override
             public void actionPerformed(ActionEvent event) {
                 System.out.println("The View button was pressed");
+                UserInterface.changeState(UI_STATE.SEARCH_APPOINTMENT);
             }
         };
     }
 
-    private class ClickListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            System.out.println("Bum");
-        }
-    }
+    // private class ClickListener implements ActionListener {
+    //     public void actionPerformed(ActionEvent event) {
+    //         System.out.println("Bum");
+    //     }
+    // }
 }

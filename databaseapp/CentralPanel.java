@@ -4,15 +4,17 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
-enum PANEL_STATES {
-    FIELD_ENTER,
-    DATE_SEARCH
-}
+// enum PANEL_STATES {
+//     ENTER_FIELDS,
+//     DATE_SEARCH
+// }
 
 public class CentralPanel extends JPanel{
-    private static final int FIELD_ENTER = 1;
-    private static final int DATE_SEARCH = 2;
     private JLabel descriptionLabel;
     private JTextField descriptionField;
     private JLabel dateLabel;
@@ -31,14 +33,17 @@ public class CentralPanel extends JPanel{
 
     /** 
      * Changes to certain states based on the input
-     * @param state The input state from CENTRALPANEL.<constant>
+     * @param state The input state from PANEL_STATES.<constant>
     */
-    public CentralPanel(int state) {
+    public CentralPanel(UI_STATE state) {
         switch (state) {
-            case 1: 
+            case ADD_APPOINTMENT: 
                 setFieldEnter();
                 break;
-            case 2: 
+            case REMOVE_APPOINTMENT:
+                setFieldEnter();
+                break;
+            case SEARCH_APPOINTMENT: 
                 setDateSearch();
                 break;
             default:
@@ -66,15 +71,41 @@ public class CentralPanel extends JPanel{
         add(this.startField);
         add(this.endLabel);
         add(this.endField);
+
+        setBorder(
+            new TitledBorder(
+                new EtchedBorder(ABORT, getForeground(), getBackground()), 
+                "Enter Appointment Details"
+            )
+        );
     }
 
     private void setDateSearch() {
-        setLayout(new GridLayout(1,2, 10, 10));
+        setLayout(new GridLayout(2,1, 10, 10));
 
+        //SUB PANEL (Search Box)
+        JPanel searchBoxes = new JPanel();
+        searchBoxes.setLayout(new GridLayout(1,2, 10, 10));
         this.dateLabel = new JLabel("Apt. Date: ");
         this.dateField = new JTextField();
+        searchBoxes.add(this.dateLabel);
+        searchBoxes.add(this.dateField);
 
-        add(this.dateLabel);
-        add(this.dateField);
+        //SUB PANEL 2 (Output Box)
+        JPanel outputBox = new JPanel();
+        JLabel outputLabel = new JLabel("Output");
+        JScrollPane outputScroll = new JScrollPane(new JTextArea(5, 40));
+        outputBox.add(outputLabel);
+        outputBox.add(outputScroll);
+
+        add(searchBoxes);
+        add(outputBox);
+
+        setBorder(            
+            new TitledBorder(
+                new EtchedBorder(ABORT, getForeground(), getBackground()), 
+                "Enter date to search for:"
+            )
+        );
     }
 }
