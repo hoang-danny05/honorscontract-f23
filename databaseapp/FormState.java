@@ -4,45 +4,47 @@ package databaseapp;
  * A class to define the creation parameters for the Database App
  * @author Bajan
  */
-public class State {
-    //fixed data
+public class FormState {
+    //metadata
     private boolean inputSuccessful;
-    private UI_STATE state;
     //dynamic data
+    private String descriptionString;
     private String dateString;
     private String startString;
     private String endString;
 
     /**
      * Called when a date, start, and end are validated and pass checks
-     * @param newState the state of the app
      * @param date the validated date inputted
      * @param start the validated start time
      * @param end the validated end time
      */
-    public State(UI_STATE newState, String date, String start, String end) {
+    public FormState(String description, String date, String start, String end) {
         this.inputSuccessful = true;
-        this.state = newState;
+        this.descriptionString = description;
         this.dateString = date;
         this.startString = start;
         this.endString = end;
     }
 
     /**
+     * Create an unsuccessful Form State 
+     */
+    public FormState() {
+        this.inputSuccessful = false;
+    }
+
+    /**
      * Called to just switch the state of the UI
      * @param newState the new state of the app
      */
-    public State(UI_STATE newState) {
-        this.inputSuccessful = true;
-        this.state = newState;
-    }
 
     public boolean isSuccessful() {
         return this.inputSuccessful;
     }
 
-    public UI_STATE getState() {
-        return this.state;
+    public String getDescription() {
+        return this.descriptionString;
     }
 
     public String getDate() {

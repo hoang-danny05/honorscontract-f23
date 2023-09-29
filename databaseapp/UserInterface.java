@@ -22,9 +22,11 @@ import javax.swing.JTabbedPane;
  */
 public class UserInterface {
     private static JFrame frame;
-    private static JPanel panel;
-    final static int FRAME_WIDTH = 700;
-    final static int FRAME_HEIGHT = 250;
+    private static CentralPanel panelAdd;
+    private static CentralPanel panelRemove;
+    private static CentralPanel panelSearch;
+    final static int FRAME_WIDTH = 600;
+    final static int FRAME_HEIGHT = 200;
     private static UI_STATE state;
 
     /**
@@ -71,16 +73,14 @@ public class UserInterface {
         JTabbedPane tabbedPane = new JTabbedPane();
 
         //############ Container Panels
-        panel = new JPanel();
-        panel.setLayout(new CardLayout(10,10));
-        CentralPanel add = new CentralPanel(UI_STATE.ADD_APPOINTMENT); 
-        tabbedPane.add("Add Appointment", add);
+        UserInterface.panelAdd = new CentralPanel(UI_STATE.ADD_APPOINTMENT); 
+        tabbedPane.add("Add Appointment", panelAdd);
 
-        CentralPanel remove = new CentralPanel(UI_STATE.REMOVE_APPOINTMENT); 
-        tabbedPane.add("Remove Appointment", remove);
+        UserInterface.panelRemove = new CentralPanel(UI_STATE.REMOVE_APPOINTMENT); 
+        tabbedPane.add("Remove Appointment", panelRemove);
 
-        CentralPanel search = new CentralPanel(UI_STATE.SEARCH_APPOINTMENT); 
-        tabbedPane.add("Search Appointments", search);
+        UserInterface.panelSearch = new CentralPanel(UI_STATE.SEARCH_APPOINTMENT); 
+        tabbedPane.add("Search Appointments", panelSearch);
         //########## OTHER
         // this.label = new JLabel("Hello!");
         // panel.add(this.label);
@@ -99,7 +99,16 @@ public class UserInterface {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                System.out.println("The Add button was pressed");
+                System.out.println("The Add button was pressed ##############");
+                FormState state = UserInterface.panelAdd.getFormState();
+                if(state.isSuccessful() == false) {
+                    System.out.println("Form submit unsuccessful.");
+                    return;
+                }
+                System.out.println("Description: " + state.getDescription());
+                System.out.println("Date: " + state.getDate());
+                System.out.println("Start: " + state.getStart());
+                System.out.println("End: " + state.getEnd());
             }
         };
     }
@@ -112,7 +121,16 @@ public class UserInterface {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                System.out.println("The Remove button was pressed");
+                System.out.println("The Remove button was pressed ##############");
+                FormState state = UserInterface.panelRemove.getFormState();
+                if(state.isSuccessful() == false) {
+                    System.out.println("Form submit unsuccessful.");
+                    return;
+                }
+                System.out.println("Description: " + state.getDescription());
+                System.out.println("Date: " + state.getDate());
+                System.out.println("Start: " + state.getStart());
+                System.out.println("End: " + state.getEnd());
             }
         };
     }
@@ -125,7 +143,14 @@ public class UserInterface {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                System.out.println("The View button was pressed");
+                System.out.println("The View button was pressed ###############");
+                FormState state = UserInterface.panelSearch.getFormState();
+                if(state.isSuccessful() == false) {
+                    System.out.println("Form submit unsuccessful.");
+                    return;
+                }
+                System.out.println("Date: " + state.getDate());
+                System.out.println("Start: " + state.getStart());
             }
         };
     }

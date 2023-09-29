@@ -4,10 +4,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+// import javax.swing.JDatePicker;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -131,14 +131,15 @@ public class CentralPanel extends JPanel{
         setLayout(new GridLayout(2,1, 10, 10));
         this.actionButton = new JButton("Search for Appointment", null);
         this.actionButton.addActionListener(UserInterface.getViewListener());
-        this.actionButton.setPreferredSize(new Dimension(50,50));
+        // this.actionButton.setPreferredSize(new Dimension(50,50));
 
         //SUB PANEL (Search Box)
         JPanel searchBoxes = new JPanel();
-        searchBoxes.setLayout(new GridLayout(1,3, 10, 10));
+        // searchBoxes.setLayout(new GridLayout(1,3, 10, 10));
         // searchBoxes.setPreferredSize(new Dimension(200, 10));
         this.dateLabel = new JLabel("Apt. Date: ");
         this.dateField = new JTextField();
+        this.dateField.setPreferredSize(new Dimension(150, 30));
         searchBoxes.add(this.dateLabel);
         searchBoxes.add(this.dateField);
         searchBoxes.add(this.actionButton);
@@ -162,6 +163,36 @@ public class CentralPanel extends JPanel{
                 new EtchedBorder(ABORT, getForeground(), getBackground()), 
                 "Enter date to search for:"
             )
+        );
+    }
+
+    public FormState getFormState() {
+        //initially true
+        boolean validInput = true;
+        String descriptionString = "";
+        String dateString = this.dateField.getText();
+        String startTime = "";
+        String endTime = "";
+        //set values here
+        if(this.descriptionField != null) {
+            descriptionString = this.descriptionField.getText();
+        }
+        if(this.startField != null) {
+            startTime = this.startField.getText();
+        }
+        if(this.endField != null) {
+            endTime = this.endField.getText();
+        }
+        if (!validInput) {
+            return new FormState();
+        }
+        //validate here
+        //return here
+        return new FormState(
+            descriptionString,
+            dateString,
+            startTime,
+            endTime
         );
     }
 }
