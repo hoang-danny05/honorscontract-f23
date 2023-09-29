@@ -1,16 +1,6 @@
 package databaseapp;
 
 /**
- * enumeration of all the panel states
- * @author Bajan
- */
-enum UI_STATE {
-    ADD_APPOINTMENT,
-    REMOVE_APPOINTMENT,
-    SEARCH_APPOINTMENT
-}
-
-/**
  * A class to define the creation parameters for the Database App
  * @author Bajan
  */

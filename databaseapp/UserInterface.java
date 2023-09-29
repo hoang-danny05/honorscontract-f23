@@ -8,10 +8,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 
 /**
@@ -30,6 +32,18 @@ public class UserInterface {
      */
     public static void init() {
         changeState(UI_STATE.ADD_APPOINTMENT);
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //create abstract class for the exit method (runs when we exit)
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                System.out.println("Closing the program!!!!");
+            }
+        });
+        //other stuff
+        // ActionListener listener = new ClickListener();
+        // button.addActionListener(listener);   
     }
 
     /**
@@ -47,41 +61,34 @@ public class UserInterface {
         //reload components based on the state
         UI_STATE oldState = UserInterface.state;
         UserInterface.state = newState;
-        System.out.println("The state is changing or whatever");
         if (oldState == newState) {
             return;
         }
+        // System.out.println("Oh crap its different");
         //#####CONSTRUCT
         //initialize containers
         frame = new JFrame("Test UI");
-        panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        JTabbedPane tabbedPane = new JTabbedPane();
 
         //############ Container Panels
-        MenuPanel menu = new MenuPanel();
-        panel.add(menu, BorderLayout.NORTH);
+        panel = new JPanel();
+        panel.setLayout(new CardLayout(10,10));
+        CentralPanel add = new CentralPanel(UI_STATE.ADD_APPOINTMENT); 
+        tabbedPane.add("Add Appointment", add);
 
-        UserInterface.state = UI_STATE.ADD_APPOINTMENT;
-        CentralPanel central = new CentralPanel();
-        panel.add(central, BorderLayout.CENTER);
+        CentralPanel remove = new CentralPanel(UI_STATE.REMOVE_APPOINTMENT); 
+        tabbedPane.add("Remove Appointment", remove);
 
+        CentralPanel search = new CentralPanel(UI_STATE.SEARCH_APPOINTMENT); 
+        tabbedPane.add("Search Appointments", search);
         //########## OTHER
         // this.label = new JLabel("Hello!");
         // panel.add(this.label);
-        frame.add(panel);
-
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //create abstract class for the exit method (runs when we exit)
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent event) {
-                System.out.println("Closing the program!!!!");
-            }
-        });
-        //other stuff
-        // ActionListener listener = new ClickListener();
-        // button.addActionListener(listener);       
+        // frame.removeAll();
+        frame.add(tabbedPane);
+        frame.pack();
+        // frame.validate();
+        frame.repaint();
     }
 
     /**

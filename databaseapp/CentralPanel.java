@@ -9,10 +9,15 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-// enum PANEL_STATES {
-//     ENTER_FIELDS,
-//     DATE_SEARCH
-// }
+/**
+ * enumeration of all the panel states
+ * @author Bajan
+ */
+enum UI_STATE {
+    ADD_APPOINTMENT,
+    REMOVE_APPOINTMENT,
+    SEARCH_APPOINTMENT
+}
 
 public class CentralPanel extends JPanel{
     private JLabel descriptionLabel;

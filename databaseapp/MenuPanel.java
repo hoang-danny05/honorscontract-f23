@@ -1,29 +1,26 @@
 package databaseapp;
 
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.JPanel;
+import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 class MenuPanel extends JPanel{
-    private JButton menuAdd;
-    private JButton menuRemove;
-    private JButton menuView;
+    private JComboBox menuItems;
+    private String[] menuCombo = {"Add Appointments", "Remove Appointments", "See Appointments"};
     
     public MenuPanel() {
-        this.menuAdd = new JButton("Add Appointments");
-        this.menuRemove = new JButton("Remove Appointments");
-        this.menuView = new JButton("See Appointments");
-        
-        this.menuAdd.addActionListener(UserInterface.getAddListener());
-        this.menuRemove.addActionListener(UserInterface.getRemoveListener());
-        this.menuView.addActionListener(UserInterface.getViewListener());
-        // this.menuAdd.setBounds(0,0,100,50);
-        // this.menuRemove.setBounds(0,0,100,50);
-        // this.menuView.setBounds(0,0,100,50);
-        setLayout(new GridLayout(1,3));
+        setLayout(new FlowLayout());
+        menuItems = new JComboBox<String>(menuCombo);
 
-        add(this.menuAdd);
-        add(this.menuRemove);
-        add(this.menuView);
+        // JTabbedPane tabs = new JTabbedPane()
     }
+
+
 }
