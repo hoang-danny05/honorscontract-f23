@@ -3,6 +3,7 @@ package databaseapp;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -28,12 +29,13 @@ public class CentralPanel extends JPanel{
     private JTextField startField;
     private JLabel endLabel;
     private JTextField endField;
+    private JButton actionButton;
 
     /**
      * Default Central Panel Constructor -> Always the fields
      */
     public CentralPanel() {
-        setFieldEnter();
+        setAddForm();
     }
 
     /** 
@@ -43,10 +45,10 @@ public class CentralPanel extends JPanel{
     public CentralPanel(UI_STATE state) {
         switch (state) {
             case ADD_APPOINTMENT: 
-                setFieldEnter();
+                setAddForm();
                 break;
             case REMOVE_APPOINTMENT:
-                setFieldEnter();
+                setRemoveForm();
                 break;
             case SEARCH_APPOINTMENT: 
                 setDateSearch();
@@ -56,7 +58,41 @@ public class CentralPanel extends JPanel{
         }
     }
 
-    private void setFieldEnter() {
+    private void setAddForm() {
+        setLayout(new GridLayout(5,2, 10, 10));
+        
+        this.descriptionLabel = new JLabel("Apt. Description: ");
+        this.dateLabel = new JLabel("Apt. Date: ");
+        this.startLabel = new JLabel("Starting Time: ");
+        this.endLabel = new JLabel("Ending Time: ");
+        this.descriptionField = new JTextField();
+        this.dateField = new JTextField();
+        this.startField = new JTextField();
+        this.endField = new JTextField();
+        //button to submit form
+        this.actionButton = new JButton("Add Appointment", null);
+        this.actionButton.addActionListener(UserInterface.getAddListener());
+        
+
+        add(this.descriptionLabel);
+        add(this.descriptionField);
+        add(this.dateLabel);
+        add(this.dateField);
+        add(this.startLabel);
+        add(this.startField);
+        add(this.endLabel);
+        add(this.endField);
+        add(this.actionButton);
+
+        setBorder(
+            new TitledBorder(
+                new EtchedBorder(ABORT, getForeground(), getBackground()), 
+                "Enter Details of Appointment to add"
+            )
+        );
+    }
+
+    private void setRemoveForm() {
         setLayout(new GridLayout(4,2, 10, 10));
         
         this.descriptionLabel = new JLabel("Apt. Description: ");
@@ -80,7 +116,7 @@ public class CentralPanel extends JPanel{
         setBorder(
             new TitledBorder(
                 new EtchedBorder(ABORT, getForeground(), getBackground()), 
-                "Enter Appointment Details"
+                "Enter details of appointment to remove"
             )
         );
     }
