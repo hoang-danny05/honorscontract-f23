@@ -23,8 +23,8 @@ import javax.swing.JTabbedPane;
 public class UserInterface {
     private static JFrame frame;
     private static JPanel panel;
-    final static int FRAME_WIDTH = 600;
-    final static int FRAME_HEIGHT = 200;
+    final static int FRAME_WIDTH = 700;
+    final static int FRAME_HEIGHT = 250;
     private static UI_STATE state;
 
     /**
@@ -100,7 +100,6 @@ public class UserInterface {
             @Override
             public void actionPerformed(ActionEvent event) {
                 System.out.println("The Add button was pressed");
-                UserInterface.changeState(UI_STATE.ADD_APPOINTMENT);
             }
         };
     }
@@ -114,7 +113,6 @@ public class UserInterface {
             @Override
             public void actionPerformed(ActionEvent event) {
                 System.out.println("The Remove button was pressed");
-                UserInterface.changeState(UI_STATE.REMOVE_APPOINTMENT);
             }
         };
     }
@@ -128,7 +126,6 @@ public class UserInterface {
             @Override
             public void actionPerformed(ActionEvent event) {
                 System.out.println("The View button was pressed");
-                UserInterface.changeState(UI_STATE.SEARCH_APPOINTMENT);
             }
         };
     }

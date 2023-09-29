@@ -1,8 +1,10 @@
 package databaseapp;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -93,7 +95,7 @@ public class CentralPanel extends JPanel{
     }
 
     private void setRemoveForm() {
-        setLayout(new GridLayout(4,2, 10, 10));
+        setLayout(new GridLayout(5,2, 10, 10));
         
         this.descriptionLabel = new JLabel("Apt. Description: ");
         this.dateLabel = new JLabel("Apt. Date: ");
@@ -103,6 +105,9 @@ public class CentralPanel extends JPanel{
         this.dateField = new JTextField();
         this.startField = new JTextField();
         this.endField = new JTextField();
+        //button to submit form
+        this.actionButton = new JButton("Remove Appointment", null);
+        this.actionButton.addActionListener(UserInterface.getRemoveListener());
 
         add(this.descriptionLabel);
         add(this.descriptionField);
@@ -112,6 +117,7 @@ public class CentralPanel extends JPanel{
         add(this.startField);
         add(this.endLabel);
         add(this.endField);
+        add(this.actionButton);
 
         setBorder(
             new TitledBorder(
@@ -123,14 +129,19 @@ public class CentralPanel extends JPanel{
 
     private void setDateSearch() {
         setLayout(new GridLayout(2,1, 10, 10));
+        this.actionButton = new JButton("Search for Appointment", null);
+        this.actionButton.addActionListener(UserInterface.getViewListener());
+        this.actionButton.setPreferredSize(new Dimension(50,50));
 
         //SUB PANEL (Search Box)
         JPanel searchBoxes = new JPanel();
-        searchBoxes.setLayout(new GridLayout(1,2, 10, 10));
+        searchBoxes.setLayout(new GridLayout(1,3, 10, 10));
+        // searchBoxes.setPreferredSize(new Dimension(200, 10));
         this.dateLabel = new JLabel("Apt. Date: ");
         this.dateField = new JTextField();
         searchBoxes.add(this.dateLabel);
         searchBoxes.add(this.dateField);
+        searchBoxes.add(this.actionButton);
 
         //SUB PANEL 2 (Output Box)
         JPanel outputBox = new JPanel();
@@ -139,7 +150,11 @@ public class CentralPanel extends JPanel{
         outputBox.add(outputLabel);
         outputBox.add(outputScroll);
 
+
+        // add(Box.createVerticalStrut(50));
         add(searchBoxes);
+        // add(this.actionButton);
+        // add(Box.createVerticalStrut(50));
         add(outputBox);
 
         setBorder(            
