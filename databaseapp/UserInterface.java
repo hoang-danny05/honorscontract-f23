@@ -106,9 +106,9 @@ public class UserInterface {
                     return;
                 }
                 System.out.println("Description: " + state.getDescription());
-                System.out.println("Date: " + state.getDate());
-                System.out.println("Start: " + state.getStart());
-                System.out.println("End: " + state.getEnd());
+                System.out.println("Date: " + state.getSQLDate());
+                System.out.println("Start: " + state.getSQLStart());
+                System.out.println("End: " + state.getSQLEnd());
             }
         };
     }
@@ -128,9 +128,9 @@ public class UserInterface {
                     return;
                 }
                 System.out.println("Description: " + state.getDescription());
-                System.out.println("Date: " + state.getDate());
-                System.out.println("Start: " + state.getStart());
-                System.out.println("End: " + state.getEnd());
+                System.out.println("Date: " + state.getSQLDate());
+                System.out.println("Start: " + state.getSQLStart());
+                System.out.println("End: " + state.getSQLEnd());
             }
         };
     }
@@ -149,7 +149,7 @@ public class UserInterface {
                     System.out.println("Form submit unsuccessful.");
                     return;
                 }
-                System.out.println("Date: " + state.getDate());
+                System.out.println("Date: " + state.getSQLDate());
                 System.out.println("Start: " + state.getStart());
             }
         };
