@@ -1,16 +1,21 @@
 package databaseapp;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 // import javax.swing.JDatePicker;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DateFormatter;
 
 /**
  * enumeration of all the panel states
@@ -26,12 +31,19 @@ public class CentralPanel extends JPanel{
     private JLabel descriptionLabel;
     private JTextField descriptionField;
     private JLabel dateLabel;
-    private JTextField dateField;
+    private JFormattedTextField dateField;
     private JLabel startLabel;
-    private JTextField startField;
+    private JFormattedTextField startField;
     private JLabel endLabel;
-    private JTextField endField;
+    private JFormattedTextField endField;
     private JButton actionButton;
+
+    private DateFormat DATE_FORMAT = new SimpleDateFormat("MM-dd-yyyy");
+    private DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
+    //dd-MM-yyyy for date, hh-mm-ss for time
+    //constant time formatters
+    private DateFormatter DATE_FORMATTER = new DateFormatter(DATE_FORMAT);
+    private DateFormatter TIME_FORMATTER = new DateFormatter(TIME_FORMAT);
 
     /**
      * Default Central Panel Constructor -> Always the fields
@@ -68,9 +80,18 @@ public class CentralPanel extends JPanel{
         this.startLabel = new JLabel("Starting Time: ");
         this.endLabel = new JLabel("Ending Time: ");
         this.descriptionField = new JTextField();
-        this.dateField = new JTextField();
-        this.startField = new JTextField();
-        this.endField = new JTextField();
+        //Formatted Date
+        this.dateField = new JFormattedTextField(DATE_FORMATTER);
+        this.dateField.setValue(new Date());
+        this.dateField.setPreferredSize(new Dimension(100, 30));
+        //Formatted Start Time
+        this.startField = new JFormattedTextField(TIME_FORMATTER);
+        this.startField.setValue(new Date());
+        this.startField.setPreferredSize(new Dimension(100, 30));
+        //start Formatted End Time
+        this.endField = new JFormattedTextField(TIME_FORMATTER);
+        this.endField.setValue(new Date());
+        this.endField.setPreferredSize(new Dimension(100, 30));
         //button to submit form
         this.actionButton = new JButton("Add Appointment", null);
         this.actionButton.addActionListener(UserInterface.getAddListener());
@@ -102,9 +123,18 @@ public class CentralPanel extends JPanel{
         this.startLabel = new JLabel("Starting Time: ");
         this.endLabel = new JLabel("Ending Time: ");
         this.descriptionField = new JTextField();
-        this.dateField = new JTextField();
-        this.startField = new JTextField();
-        this.endField = new JTextField();
+        //Formatted Date
+        this.dateField = new JFormattedTextField(DATE_FORMATTER);
+        this.dateField.setValue(new Date());
+        this.dateField.setPreferredSize(new Dimension(100, 30));
+        //Formatted Start Time
+        this.startField = new JFormattedTextField(TIME_FORMATTER);
+        this.startField.setValue(new Date());
+        this.startField.setPreferredSize(new Dimension(100, 30));
+        //start Formatted End Time
+        this.endField = new JFormattedTextField(TIME_FORMATTER);
+        this.endField.setValue(new Date());
+        this.endField.setPreferredSize(new Dimension(100, 30));
         //button to submit form
         this.actionButton = new JButton("Remove Appointment", null);
         this.actionButton.addActionListener(UserInterface.getRemoveListener());
@@ -138,8 +168,12 @@ public class CentralPanel extends JPanel{
         // searchBoxes.setLayout(new GridLayout(1,3, 10, 10));
         // searchBoxes.setPreferredSize(new Dimension(200, 10));
         this.dateLabel = new JLabel("Apt. Date: ");
-        this.dateField = new JTextField();
-        this.dateField.setPreferredSize(new Dimension(150, 30));
+        // formatted field
+
+        this.dateField = new JFormattedTextField(DATE_FORMATTER);
+        this.dateField.setValue(new Date());
+        this.dateField.setPreferredSize(new Dimension(100, 30));
+
         searchBoxes.add(this.dateLabel);
         searchBoxes.add(this.dateField);
         searchBoxes.add(this.actionButton);
@@ -187,6 +221,7 @@ public class CentralPanel extends JPanel{
             return new FormState();
         }
         //validate here
+        //ALREADY VALIDATED, FORMATTED TEXT FIELD GOTCHA
         //return here
         return new FormState(
             descriptionString,

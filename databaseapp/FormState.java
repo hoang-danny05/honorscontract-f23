@@ -15,9 +15,9 @@ public class FormState {
 
     /**
      * Called when a date, start, and end are validated and pass checks
-     * @param date the validated date inputted
-     * @param start the validated start time
-     * @param end the validated end time
+     * @param date the validated date inputted MM-dd-yyyy
+     * @param start the validated start time hh:mm a (AM/PM)
+     * @param end the validated end time hh:mm a (AM/PM)
      */
     public FormState(String description, String date, String start, String end) {
         this.inputSuccessful = true;
