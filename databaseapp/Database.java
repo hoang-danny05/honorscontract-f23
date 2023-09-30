@@ -54,7 +54,14 @@ public class Database {
             //Create the table if it does not exist
             if (! Utils.checkForTable(conn)) {
                 System.out.println("Table does not exist, creating a table");
-                stat.execute("CREATE TABLE Test (Name VARCHAR(20))");
+                stat.execute("""
+                    CREATE TABLE Appointments (
+                        description VARCHAR(50),
+                        day DATE,
+                        startTime TIME,
+                        endTime TIME
+                    )
+                """);
             } else {
                 System.out.println("Table check passed.");
             }
@@ -83,16 +90,23 @@ public class Database {
      * placeholder before I add any real SQL code execution
      */
     public void testTable() {
+        System.out.println("Going into testtable");
         try{
-            this.stat.execute("INSERT INTO Test VALUES ('UrMom')");
+            this.stat.execute("""
+                INSERT INTO Appointments (description, day, startTime, endTime)
+                VALUES ('Some nerd being born', '2005-03-18', '05:00:00', '18:00:00')
+            """);
 
-            ResultSet result = this.stat.executeQuery("SELECT * FROM Test");
+            ResultSet result = this.stat.executeQuery("SELECT * FROM Appointments");
 
             while (result.next()) { // meant to loop over the table
-                System.out.println(result.getString("Name"));
+                System.out.println(result.getString("description"));
+                System.out.println(result.getString("day"));
+                System.out.println(result.getString("startTime"));
+                System.out.println(result.getString("endTime"));
             }
 
-            this.stat.execute("DROP TABLE Test");
+            this.stat.execute("DROP TABLE Appointments");
         }
         catch (SQLException se) {
             System.out.println("SQL Error: " + se.getSQLState());
