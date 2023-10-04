@@ -147,18 +147,18 @@ public class Database {
             newAppointment.getSQLEnd()
         );
 
-        String query = String.format("""
+        String query = """
                 INSERT INTO Appointments (description, day, startTime, endTime)
-                VALUES ('%s', '%s', '%s', '%s')
-            """,
-            newAppointment.getDescription(),
-            newAppointment.getSQLDate(),
-            newAppointment.getSQLStart(),
-            newAppointment.getSQLEnd()
-        );
+                VALUES (?, ?, ?, ?)
+            """;
 
         try {
-            instance.stat.execute(query);
+            PreparedStatement prepStat = Database.instance.conn.prepareStatement(query);
+            prepStat.setString(1, newAppointment.getDescription());
+            prepStat.setString(2, newAppointment.getSQLDate());
+            prepStat.setString(3, newAppointment.getSQLStart());
+            prepStat.setString(4, newAppointment.getSQLEnd());
+            prepStat.execute();
         }
         catch (SQLException se) {
             System.out.println("SQL Error: " + se.getSQLState());
