@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -112,7 +113,25 @@ public class Database {
                 System.out.println(result.getString("endTime"));
             }
 
-            this.stat.execute("DROP TABLE Appointments");
+            // this.stat.execute("DROP TABLE Appointments");
+        }
+        catch (SQLException se) {
+            System.out.println("SQL Error: " + se.getSQLState());
+            se.printStackTrace(System.out);
+        }
+    }
+
+    public static void displayAppointments() {
+        try{
+            ResultSet result = Database.instance.stat.executeQuery("SELECT * FROM Appointments");
+
+            while (result.next()) { // meant to loop over the table
+                System.out.println("~~~~~~~~~~~~~~~~~");
+                System.out.println(result.getString("description"));
+                System.out.println(result.getString("day"));
+                System.out.println(result.getString("startTime"));
+                System.out.println(result.getString("endTime"));
+            }
         }
         catch (SQLException se) {
             System.out.println("SQL Error: " + se.getSQLState());
@@ -121,7 +140,7 @@ public class Database {
     }
 
     public static void addAppointment(FormState newAppointment) {
-        System.out.printf("Inserting Appointment: ['Description': %s, 'Date': %s, 'Start': %s, 'End': %s]",
+        System.out.printf("Inserting Appointment: ['Description': %s, 'Date': %s, 'Start': %s, 'End': %s]\n",
             newAppointment.getDescription(),
             newAppointment.getSQLDate(),
             newAppointment.getSQLStart(),
@@ -149,10 +168,22 @@ public class Database {
 
 
     /** 
+     * STATIC VERSION: Method that should be run to close down the database connection
+     */
+    public static void exitInstance() {
+        if(Database.instance == null) {
+            System.out.println("No instance created yet, cannot exit");
+        } else {
+            Database.instance.exit();
+        }
+    }
+
+    /** 
      * Method that should be run to close down the database connection
      */
     public void exit() {
         try {
+            this.stat.execute("DROP TABLE Appointments");
             this.stat.close();
             this.conn.close();
             System.out.println("Closed statement and connection");

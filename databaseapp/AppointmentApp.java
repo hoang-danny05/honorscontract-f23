@@ -25,7 +25,7 @@ public class AppointmentApp {
       UserInterface.show();
       db.init();
       db.testTable();
-      db.exit();
+      // db.exit();
     }
     
 }

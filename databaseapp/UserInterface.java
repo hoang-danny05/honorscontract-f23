@@ -41,6 +41,7 @@ public class UserInterface {
             @Override
             public void windowClosing(WindowEvent event) {
                 System.out.println("Closing the program!!!!");
+                Database.exitInstance();
             }
         });
         //other stuff
@@ -105,10 +106,12 @@ public class UserInterface {
                     System.out.println("Form submit unsuccessful.");
                     return;
                 }
-                System.out.println("Description: " + state.getDescription());
-                System.out.println("Date: " + state.getSQLDate());
-                System.out.println("Start: " + state.getSQLStart());
-                System.out.println("End: " + state.getSQLEnd());
+                // System.out.println("Description: " + state.getDescription());
+                // System.out.println("Date: " + state.getSQLDate());
+                // System.out.println("Start: " + state.getSQLStart());
+                // System.out.println("End: " + state.getSQLEnd());
+                Database.addAppointment(state);
+                Database.displayAppointments();
             }
         };
     }
