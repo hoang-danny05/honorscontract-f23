@@ -95,7 +95,7 @@ public class FormState {
             this.dateString.substring(0, 2),
             this.dateString.substring(3, 5)
         );
-    }
+    } 
 
     /**
      * SQL friendly version of start time

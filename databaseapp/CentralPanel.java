@@ -181,7 +181,9 @@ public class CentralPanel extends JPanel{
         //SUB PANEL 2 (Output Box)
         JPanel outputBox = new JPanel();
         JLabel outputLabel = new JLabel("Output");
-        JScrollPane outputScroll = new JScrollPane(new JTextArea(5, 40));
+        JTextArea outputArea = new JTextArea(5, 40);
+        outputArea.setEditable(false);
+        JScrollPane outputScroll = new JScrollPane(outputArea);
         outputBox.add(outputLabel);
         outputBox.add(outputScroll);
 

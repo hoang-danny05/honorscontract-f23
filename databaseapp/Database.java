@@ -7,7 +7,7 @@ package databaseapp;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 // import java.io.IOException;
-
+import java.io.InvalidClassException;
 import java.util.Properties;
 
 import java.sql.Connection;
@@ -24,8 +24,14 @@ public class Database {
     private Properties props;
     private Connection conn;
     private Statement stat;
+    private static Database instance = null;
 
-    public Database() {
+    public Database() throws InvalidClassException {
+        if (Database.instance == null) {
+            Database.instance = this;
+        } else {
+            throw new InvalidClassException("Instance already created");
+        }
         this.props = new Properties();
     }
 
@@ -113,6 +119,34 @@ public class Database {
             se.printStackTrace(System.out);
         }
     }
+
+    public static void addAppointment(FormState newAppointment) {
+        System.out.printf("Inserting Appointment: ['Description': %s, 'Date': %s, 'Start': %s, 'End': %s]",
+            newAppointment.getDescription(),
+            newAppointment.getSQLDate(),
+            newAppointment.getSQLStart(),
+            newAppointment.getSQLEnd()
+        );
+
+        String query = String.format("""
+                INSERT INTO Appointments (description, day, startTime, endTime)
+                VALUES ('%s', '%s', '%s', '%s')
+            """,
+            newAppointment.getDescription(),
+            newAppointment.getSQLDate(),
+            newAppointment.getSQLStart(),
+            newAppointment.getSQLEnd()
+        );
+
+        try {
+            instance.stat.execute(query);
+        }
+        catch (SQLException se) {
+            System.out.println("SQL Error: " + se.getSQLState());
+            se.printStackTrace(System.out);
+        }
+    }
+
 
     /** 
      * Method that should be run to close down the database connection
