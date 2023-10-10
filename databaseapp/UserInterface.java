@@ -130,10 +130,11 @@ public class UserInterface {
                     System.out.println("Form submit unsuccessful.");
                     return;
                 }
-                System.out.println("Description: " + state.getDescription());
-                System.out.println("Date: " + state.getSQLDate());
-                System.out.println("Start: " + state.getSQLStart());
-                System.out.println("End: " + state.getSQLEnd());
+                // System.out.println("Description: " + state.getDescription());
+                // System.out.println("Date: " + state.getSQLDate());
+                // System.out.println("Start: " + state.getSQLStart());
+                // System.out.println("End: " + state.getSQLEnd());
+                Database.removeAppointment(state);
             }
         };
     }
@@ -152,8 +153,7 @@ public class UserInterface {
                     System.out.println("Form submit unsuccessful.");
                     return;
                 }
-                System.out.println("Date: " + state.getSQLDate());
-                System.out.println("Start: " + state.getStart());
+                Database.searchAppointment(state);
             }
         };
     }

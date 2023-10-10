@@ -166,6 +166,65 @@ public class Database {
         }
     }
 
+    public static void removeAppointment(FormState cancelledAppointment) {
+        System.out.printf("Removing Appointment: ['Description': %s, 'Date': %s, 'Start': %s, 'End': %s]\n",
+            cancelledAppointment.getDescription(),
+            cancelledAppointment.getSQLDate(),
+            cancelledAppointment.getSQLStart(),
+            cancelledAppointment.getSQLEnd()
+        );
+
+        String query = """
+                DELETE FROM Appointments
+                WHERE (
+                    description = ? AND
+                    day = ? AND
+                    startTime = ? AND
+                    endTime = ?
+                )
+            """;
+
+        try {
+            PreparedStatement prepStat = Database.instance.conn.prepareStatement(query);
+            prepStat.setString(1, cancelledAppointment.getDescription());
+            prepStat.setString(2, cancelledAppointment.getSQLDate());
+            prepStat.setString(3, cancelledAppointment.getSQLStart());
+            prepStat.setString(4, cancelledAppointment.getSQLEnd());
+            prepStat.execute();
+        }
+        catch (SQLException se) {
+            System.out.println("SQL Error: " + se.getSQLState());
+            se.printStackTrace(System.out);
+        }
+    }
+
+    public static void searchAppointment(FormState newAppointment) {
+        System.out.printf("Searching for Appointment: ['Date': %s]\n",
+            newAppointment.getSQLDate()
+        );
+
+        String query = """
+                SELECT * FROM Appointments WHERE day = ?
+            """;
+
+        try {
+            PreparedStatement prepStat = Database.instance.conn.prepareStatement(query);
+            prepStat.setString(1, newAppointment.getSQLDate());
+            ResultSet result = prepStat.executeQuery();
+
+            while (result.next()) { // meant to loop over the table
+                System.out.println("~~~~~~~~~~~~~~~~~");
+                System.out.println(result.getString("description"));
+                System.out.println(result.getString("day"));
+                System.out.println(result.getString("startTime"));
+                System.out.println(result.getString("endTime"));
+            }
+        }
+        catch (SQLException se) {
+            System.out.println("SQL Error: " + se.getSQLState());
+            se.printStackTrace(System.out);
+        }
+    }
 
     /** 
      * STATIC VERSION: Method that should be run to close down the database connection
