@@ -211,14 +211,24 @@ public class Database {
             PreparedStatement prepStat = Database.instance.conn.prepareStatement(query);
             prepStat.setString(1, newAppointment.getSQLDate());
             ResultSet result = prepStat.executeQuery();
+            String output = "";
 
             while (result.next()) { // meant to loop over the table
                 System.out.println("~~~~~~~~~~~~~~~~~");
-                System.out.println(result.getString("description"));
-                System.out.println(result.getString("day"));
-                System.out.println(result.getString("startTime"));
-                System.out.println(result.getString("endTime"));
+                String description =    result.getString("description");
+                String day =            result.getString("day");
+                String startTime =      result.getString("startTime");
+                String endTime =        result.getString("endTime");
+
+                System.out.println(description);
+                System.out.println(day);
+                System.out.println(startTime);
+                System.out.println(endTime);
+
+                output += String.format("Appointment: \"%s\" on %s from %s to %s\n", description, FormState.readableDate(day), FormState.readableTime(startTime), FormState.readableTime(endTime));
             }
+            //use UserInterface.panelSearch.setText()
+            UserInterface.panelSearch.outputTextArea.setText(output);
         }
         catch (SQLException se) {
             System.out.println("SQL Error: " + se.getSQLState());

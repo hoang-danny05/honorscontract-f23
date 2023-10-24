@@ -7,12 +7,9 @@ package databaseapp;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 
@@ -24,7 +21,7 @@ public class UserInterface {
     private static JFrame frame;
     private static CentralPanel panelAdd;
     private static CentralPanel panelRemove;
-    private static CentralPanel panelSearch;
+    protected static CentralPanel panelSearch;
     final static int FRAME_WIDTH = 600;
     final static int FRAME_HEIGHT = 200;
     private static UI_STATE state;

@@ -139,5 +139,25 @@ public class FormState {
         );
     }
 
+    ///################# UTIL METHODS ###################
+    public static String readableTime(String SQLTime) {
+        boolean PM = false;
+        int hour = Integer.valueOf(SQLTime.substring(0, 2));
+        if (hour > 12) {
+            hour -= 12;
+            PM = true;
+        }
+        String minute = SQLTime.substring(3, 5);
+        //seconds negligible
+        return String.format("%s:%s %s", String.valueOf(hour), minute, PM ? "PM" : "AM");
+    }
+
+    public static String readableDate(String SQLDate) {
+        String year = SQLDate.substring(0, 4);
+        String month = SQLDate.substring(5, 7);
+        String day = SQLDate.substring(8, 10);
+
+        return String.format("%s-%s-%s", month, day, year);
+    }
 }
 

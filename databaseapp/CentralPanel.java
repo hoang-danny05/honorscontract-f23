@@ -37,6 +37,8 @@ public class CentralPanel extends JPanel{
     private JLabel endLabel;
     private JFormattedTextField endField;
     private JButton actionButton;
+    //unique to search
+    protected JTextArea outputTextArea;
 
     private DateFormat DATE_FORMAT = new SimpleDateFormat("MM-dd-yyyy");
     private DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
@@ -181,9 +183,9 @@ public class CentralPanel extends JPanel{
         //SUB PANEL 2 (Output Box)
         JPanel outputBox = new JPanel();
         JLabel outputLabel = new JLabel("Output");
-        JTextArea outputArea = new JTextArea(5, 40);
-        outputArea.setEditable(false);
-        JScrollPane outputScroll = new JScrollPane(outputArea);
+        this.outputTextArea = new JTextArea(5, 40);
+        this.outputTextArea.setEditable(false);
+        JScrollPane outputScroll = new JScrollPane(outputTextArea);
         outputBox.add(outputLabel);
         outputBox.add(outputScroll);
 
