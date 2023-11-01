@@ -23,7 +23,7 @@ public class UserInterface {
     private static CentralPanel panelRemove;
     protected static CentralPanel panelSearch;
     final static int FRAME_WIDTH = 600;
-    final static int FRAME_HEIGHT = 200;
+    final static int FRAME_HEIGHT = 300;
     private static UI_STATE state;
 
     /**

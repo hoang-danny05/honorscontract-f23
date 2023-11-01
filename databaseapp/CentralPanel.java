@@ -77,8 +77,8 @@ public class CentralPanel extends JPanel{
     private void setAddForm() {
         setLayout(new GridLayout(5,2, 10, 10));
         
-        this.descriptionLabel = new JLabel("Apt. Description: ");
-        this.dateLabel = new JLabel("Apt. Date: ");
+        this.descriptionLabel = new JLabel("Appointment Description: ");
+        this.dateLabel = new JLabel("Appointment Date: ");
         this.startLabel = new JLabel("Starting Time: ");
         this.endLabel = new JLabel("Ending Time: ");
         this.descriptionField = new JTextField();
@@ -120,8 +120,8 @@ public class CentralPanel extends JPanel{
     private void setRemoveForm() {
         setLayout(new GridLayout(5,2, 10, 10));
         
-        this.descriptionLabel = new JLabel("Apt. Description: ");
-        this.dateLabel = new JLabel("Apt. Date: ");
+        this.descriptionLabel = new JLabel("Appointment Description: ");
+        this.dateLabel = new JLabel("Appointment Date: ");
         this.startLabel = new JLabel("Starting Time: ");
         this.endLabel = new JLabel("Ending Time: ");
         this.descriptionField = new JTextField();
@@ -169,7 +169,7 @@ public class CentralPanel extends JPanel{
         JPanel searchBoxes = new JPanel();
         // searchBoxes.setLayout(new GridLayout(1,3, 10, 10));
         // searchBoxes.setPreferredSize(new Dimension(200, 10));
-        this.dateLabel = new JLabel("Apt. Date: ");
+        this.dateLabel = new JLabel("Appointment Date: ");
         // formatted field
 
         this.dateField = new JFormattedTextField(DATE_FORMATTER);

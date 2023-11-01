@@ -79,6 +79,10 @@ public class Database {
             return false;
         }
         catch (SQLException se) { //Any SQL error
+            if (se.getSQLState().equals("X0Y32")) {
+                System.out.println("Table Already exists.");
+                return false;
+            }
             System.out.println("SQL Error: " + se.getSQLState());
             se.printStackTrace(System.out);
             return false;
@@ -101,7 +105,7 @@ public class Database {
         try{
             this.stat.execute("""
                 INSERT INTO Appointments (description, day, startTime, endTime)
-                VALUES ('Some nerd being born', '2005-03-18', '05:00:00', '18:00:00')
+                VALUES ('Danny''s Birthday', '2005-03-18', '05:00:00', '18:00:00')
             """);
 
             ResultSet result = this.stat.executeQuery("SELECT * FROM Appointments");
@@ -252,7 +256,8 @@ public class Database {
      */
     public void exit() {
         try {
-            this.stat.execute("DROP TABLE Appointments");
+            // this.stat.execute("DROP TABLE Appointments");
+            // ^ TODO: COMMENT ABOVE OUT TO PRESERVE DATA   
             this.stat.close();
             this.conn.close();
             System.out.println("Closed statement and connection");

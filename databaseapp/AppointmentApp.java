@@ -24,7 +24,7 @@ public class AppointmentApp {
       UserInterface.init();
       UserInterface.show();
       db.init();
-      db.testTable();
+      // db.testTable(); // TODO: comment out to remove entry 1
       // db.exit();
     }
     
